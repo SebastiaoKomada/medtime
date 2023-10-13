@@ -1,9 +1,9 @@
 import { CreatePerfilDto } from './dtos/createPerfil.dto';
-import { ConflictException, Injectable, Param, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, Param, UnauthorizedException } from '@nestjs/common';
 import { PerfilEntity } from './entities/perfil.entity';
 import { hash } from 'bcrypt'
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CacheService } from 'src/cache/cache.service';
 import { UserService } from 'src/user/user.service';
 import { ReturnPerfilDto } from './dtos/returnPerfil.dto';
@@ -53,21 +53,32 @@ export class PerfilService {
           },
         });
         if (!perfil) {
-          throw new ConflictException('Perfil not found');
+          throw new NotFoundException(`Perfil id: ${perId} not found`);
         }
         
         this.perfilIdService.setProfileId(perfil.perId);
-        console.log('Id Pego: ', this.perfilIdService.getProfileId());
-        console.log(
-          'Id: ',
-          perfil.perId,
-          'Nome: ',
-          perfil.perNome,
-          'Imagem: ',
-          perfil.perImagem,
-          'Usuario Id: ',
-          perfil.perUsuId,
-        );
+        // console.log('Id Pego: ', this.perfilIdService.getProfileId());
+        // console.log(
+        //   'Id: ',
+        //   perfil.perId,
+        //   'Nome: ',
+        //   perfil.perNome,
+        //   'Imagem: ',
+        //   perfil.perImagem,
+        //   'Usuario Id: ',
+        //   perfil.perUsuId,
+        // );
         return perfil;
       }
+
+    async deletePerfilByID(perId: number, perUsuId: number): Promise<DeleteResult>{
+
+      const deletePerfil = await this.selectPerfil(perId, perUsuId);
+
+      return this.perfilRepository.delete(deletePerfil);
+
+    }
+
 }
+
+

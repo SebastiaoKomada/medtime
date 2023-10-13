@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PerfilIdService {
+    findOne(arg0: { where: any; perId: number; }) {
+      throw new Error('Method not implemented.');
+    }
     private profileId: number;
 
     setProfileId(id: number) {
