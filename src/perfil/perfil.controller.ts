@@ -28,7 +28,6 @@ export class PerfilController {
     return this.PerfilService.selectPerfil( perId, perUsuId);
   }
 
-  @Roles(UserType.Admin)
   @UsePipes(ValidationPipe)
   @Delete('/:perId')
   async deletePerfil(@Param('perId') perId: number,@Param('perUsuId') perUsuId: number): Promise<DeleteResult> {

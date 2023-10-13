@@ -1,7 +1,7 @@
 import { PerfilEntity } from "src/perfil/entities/perfil.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: 'tblUsuario' })
+@Entity({ name: 'tblusuario' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   usuId: number;

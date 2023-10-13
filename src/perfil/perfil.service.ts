@@ -73,7 +73,7 @@ export class PerfilService {
 
     async deletePerfilByID(perId: number, perUsuId: number): Promise<DeleteResult>{
 
-      const deletePerfil = await this.selectPerfil(perId, perUsuId);
+      const deletePerfil = await this.selectPerfil(perId, perUsuId)
 
       return this.perfilRepository.delete(deletePerfil);
 

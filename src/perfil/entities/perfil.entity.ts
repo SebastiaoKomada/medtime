@@ -1,7 +1,7 @@
 import { UserEntity } from "src/user/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: 'tblPerfil' })
+@Entity({ name: 'tblperfil' })
 export class PerfilEntity {
 
     @PrimaryGeneratedColumn()
