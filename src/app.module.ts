@@ -10,6 +10,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PerfilIdService } from './perfil-id/perfil-id.service';
 import { PerfilIdModule } from './perfil-id/perfil-id.module';
+import { ConfirmacaoModule } from './confirmacao/confirmacao.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +28,7 @@ import { PerfilIdModule } from './perfil-id/perfil-id.module';
     migrations: [`${__dirname}/migrations/{.ts,*.js}`],
     migrationsRun: true
   })
-    , UserModule, PerfilModule, CacheModule, AuthModule, JwtModule, PerfilIdModule],
+    , UserModule, PerfilModule, CacheModule, AuthModule, JwtModule, PerfilIdModule, ConfirmacaoModule],
   controllers: [],
   providers: [  {
     provide: APP_GUARD,

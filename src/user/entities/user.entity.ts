@@ -1,3 +1,4 @@
+import { MedicacaoEntity } from "src/medicacao/entities/medicacao.entity";
 import { PerfilEntity } from "src/perfil/entities/perfil.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -29,4 +30,10 @@ export class UserEntity {
 
   @OneToMany(() => PerfilEntity, (perfis) => perfis.user)
   perfis?: PerfilEntity[];
+
+  @OneToMany(() => MedicacaoEntity, (medicacao) => medicacao.user)
+  medicacao?: MedicacaoEntity[];
+
+
+  
 }
