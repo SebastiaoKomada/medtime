@@ -27,8 +27,7 @@ import { TimeModule } from './time/time.module';
     entities: [`${__dirname}/**/*entity{.js,.ts}`],
     migrations: [`${__dirname}/migrations/{.ts,*.js}`],
     migrationsRun: true
-  })
-    , UserModule, ProfileModule, CacheModule, AuthModule, JwtModule, ProfileIdModule, TimeModule],
+  }), UserModule, ProfileModule, CacheModule, AuthModule, JwtModule, ProfileIdModule, TimeModule],
   controllers: [],
   providers: [  {
     provide: APP_GUARD,
