@@ -14,7 +14,7 @@ export class ConfirmationController {
         ) { }
 
     @UsePipes(ValidationPipe)
-    @Post()
+    @Post("/:conMedId/:conHorId")
     async confirmMedication(
       @Body() createConfirmationDto: CreateConfirmationDto, 
       @Param('conPerId') conPerId: number, 

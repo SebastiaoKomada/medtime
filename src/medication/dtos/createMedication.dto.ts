@@ -1,6 +1,6 @@
 import { IsDate, IsNumber, IsOptional, IsString, isNumber } from "class-validator";
 
-export class CreateMedicacaoDto {
+export class CreateMedicationDto {
     @IsString()
     medNome: string;
 
@@ -10,13 +10,12 @@ export class CreateMedicacaoDto {
     @IsNumber()
     medQuantidade: number;
 
-    @IsDate()
-    medDataInicio: Date;
+    @IsString()
+    //@IsDate()
+    medDataInicio: string;
 
-    @IsDate()
+    @IsString()
+    //@IsDate()
     @IsOptional()
-    medDataFim: Date;
-
-    @IsNumber()
-    medPerId: number;
+    medDataFim: string;
 }

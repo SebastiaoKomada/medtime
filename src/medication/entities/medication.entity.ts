@@ -1,8 +1,9 @@
-import { UserEntity } from "src/user/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+//import { UserEntity } from "src/user/entities/user.entity";
+import { TimeEntity } from "src/time/entities/time.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'tblmedicacao' })
-export class MedicacaoEntity {
+export class MedicationEntity {
 
     @PrimaryGeneratedColumn()
     medId: number;
@@ -17,16 +18,16 @@ export class MedicacaoEntity {
     medQuantidade: number;
 
     @Column({ name: 'medDataInicio', nullable: false })
-    medDataInicio: Date;
+    medDataInicio: string;
 
     @Column({ name: 'medDataFim', nullable: true })
-    medDataFim: Date;
+    medDataFim: string;
 
     @Column({ name: 'medPerId', nullable: false })
     medPerId: number;
 
-    // @ManyToOne(() => UserEntity, (user) => user.medicacao)
-    // @JoinColumn({ name: 'medPerId', referencedColumnName: 'usuId' })
-    // user?: UserEntity;
+    @OneToMany(() => TimeEntity, (times) => times.medication)
+    times?: TimeEntity[];
+
 
 }

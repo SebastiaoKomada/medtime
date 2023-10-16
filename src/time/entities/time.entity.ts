@@ -1,5 +1,6 @@
+import { MedicationEntity } from "src/medication/entities/medication.entity";
 import { ProfileEntity } from "../../profile/entities/profile.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'tblhorario' })
 export class TimeEntity {
@@ -24,6 +25,7 @@ export class TimeEntity {
   @Column({ name: 'updated_at', nullable: false })
   updated_at: string;
 
-//   @OneToMany(() => ProfileEntity, (perfis) => perfis.user)
-//   perfis?: ProfileEntity[];
+  @ManyToOne(() => MedicationEntity, (medication) => medication.times)
+  @JoinColumn({ name: 'horMedId', referencedColumnName: 'medId' })
+  medication?: MedicationEntity;
 }

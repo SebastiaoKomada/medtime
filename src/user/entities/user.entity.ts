@@ -1,4 +1,3 @@
-import { MedicacaoEntity } from "src/medicacao/entities/medicacao.entity";
 import { ProfileEntity } from "src/profile/entities/profile.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
