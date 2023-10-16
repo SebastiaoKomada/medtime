@@ -1,9 +1,10 @@
-import { PerfilModule } from './../perfil/perfil.module';
+import { ProfileModule } from '../profile/profile.module';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from '../user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ProfileIdModule } from 'src/profile/profile-id/profile-id.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { JwtModule } from '@nestjs/jwt';
         signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
       }),
     }),
-    PerfilModule,
+    ProfileModule,
+    ProfileIdModule
   ],
   providers: [AuthService],
   controllers: [AuthController],

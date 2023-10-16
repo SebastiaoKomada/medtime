@@ -1,4 +1,4 @@
-import { ReturnPerfilDto } from "src/perfil/dtos/returnPerfil.dto";
+import { ReturnProfileDto } from "../../profile/dtos/returnProfile.dto";
 import { UserEntity } from "../entities/user.entity";
 
 export class ReturnUserDto {
@@ -6,7 +6,7 @@ export class ReturnUserDto {
   usuNome: string;
   usuEmail: string;
   usuTelefone: string;
-  perfis?: ReturnPerfilDto[];
+  perfis?: ReturnProfileDto[];
 
   constructor(userEntity: UserEntity) {
     this.usuId = userEntity.usuId,
@@ -14,6 +14,6 @@ export class ReturnUserDto {
       this.usuEmail = userEntity.usuEmail,
       this.usuTelefone = userEntity.usuTelefone,
 
-      this.perfis = userEntity.perfis ? userEntity.perfis.map((perfis) => new ReturnPerfilDto(perfis)) : undefined;
+      this.perfis = userEntity.perfis ? userEntity.perfis.map((perfis) => new ReturnProfileDto(perfis)) : undefined;
   }
 }

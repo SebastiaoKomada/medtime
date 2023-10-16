@@ -1,42 +1,55 @@
-import { CreatePerfilDto } from './../perfil/dtos/createPerfil.dto';
+import { CreateProfileDto } from '../profile/dtos/createProfile.dto';
 import { compare } from 'bcrypt';
 import { UserService } from './../user/user.service';
 import { LoginDto } from './dtos/login.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { ReturnLogin } from './dtos/returnLogin.dto';
-import { ReturnUserDto } from 'src/user/dtos/returnUser.dto';
+import { ReturnUserDto } from '../user/dtos/returnUser.dto';
 import { LoginPayload } from './dtos/loginPayload.dto';
-import { PerfilEntity } from 'src/perfil/entities/perfil.entity';
+import { ProfileEntity } from '../profile/entities/profile.entity';
 import { Repository } from 'typeorm';
-import { PerfilService } from 'src/perfil/perfil.service';
+import { ProfileService } from '../profile/profile.service';
+import { ReturnProfileDto } from '../profile/dtos/returnProfile.dto';
+import { ProfileIdService } from 'src/profile/profile-id/profile-id.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly perfilService: PerfilService,
+    private readonly profileService: ProfileService,
+    private readonly profileIdService: ProfileIdService,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   async login(loginDto: LoginDto): Promise<ReturnLogin> {
     const user: UserEntity | undefined = await this.userService
       .findUserByEmail(loginDto.usuEmail)
       .catch(() => undefined);
+      
     const isMatch = await compare(loginDto.usuSenha, user?.usuSenha || '');
 
     if (!user || !isMatch) {
       throw new NotFoundException('Email ou senha inválidos');
     }
-
-    if (!user.perfis) {
-      const createPerfilDto: CreatePerfilDto = {
-        perNome: user.usuNome,
-        perImagem: 'imagemteste.png'
+    const returnUser = new  ReturnUserDto(await this.userService.getUserByIdUsingRelations(user.usuId),);
+    if (!returnUser.perfis || returnUser.perfis.length === 0) {
+      const createProfileDto: CreateProfileDto = {
+        perNome: returnUser.usuNome,
+        perImagem: 'imagemteste.png',
       };
 
-      const newPerfil = await this.perfilService.createPerfil(createPerfilDto, user.usuId);
+      const newPerfil = await this.profileService.createPerfil(
+        createProfileDto,
+        user.usuId,
+      );
+    }
+
+    if (returnUser.perfis && returnUser.perfis.length > 0) {
+      const userPerfil = returnUser.perfis[0];
+      this.profileIdService.setProfileId(Number(userPerfil.perId));
+      console.log(this.profileIdService.getProfileId())
     }
     return {
       accessToken: this.jwtService.sign({ ...new LoginPayload(user) }),

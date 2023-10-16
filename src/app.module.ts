@@ -2,14 +2,15 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PerfilModule } from './perfil/perfil.module';
+import { ProfileModule } from './profile/profile.module';
 import { CacheModule } from './cache/cache.module';
 import { AuthModule } from './auth/auth.module';
 import { RolesGuard } from './guards/roles.guards';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
-import { PerfilIdService } from './perfil-id/perfil-id.service';
-import { PerfilIdModule } from './perfil-id/perfil-id.module';
+import { ProfileIdService } from './profile/profile-id/profile-id.service';
+import { ProfileIdModule } from './profile/profile-id/profile-id.module';
+import { TimeModule } from './time/time.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,11 +28,11 @@ import { PerfilIdModule } from './perfil-id/perfil-id.module';
     migrations: [`${__dirname}/migrations/{.ts,*.js}`],
     migrationsRun: true
   })
-    , UserModule, PerfilModule, CacheModule, AuthModule, JwtModule, PerfilIdModule],
+    , UserModule, ProfileModule, CacheModule, AuthModule, JwtModule, ProfileIdModule, TimeModule],
   controllers: [],
   providers: [  {
     provide: APP_GUARD,
     useClass: RolesGuard,
-  }, PerfilIdService,],
+  }, ProfileIdService,],
 })
 export class AppModule { }
