@@ -1,5 +1,5 @@
 import { MedicacaoEntity } from "src/medicacao/entities/medicacao.entity";
-import { PerfilEntity } from "src/perfil/entities/perfil.entity";
+import { ProfileEntity } from "src/profile/entities/profile.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'tblusuario' })
@@ -28,9 +28,9 @@ export class UserEntity {
   @Column({ name: 'updated_at', nullable: false })
   updated_at: string;
 
-  @OneToMany(() => PerfilEntity, (perfis) => perfis.user)
-  perfis?: PerfilEntity[];
+  @OneToMany(() => ProfileEntity, (perfis) => perfis.user)
+  perfis?: ProfileEntity[];
 
-  @OneToMany(() => MedicacaoEntity, (medicacao) => medicacao.user)
-  medicacao?: MedicacaoEntity[];
+  // @OneToMany(() => MedicacaoEntity, (medicacao) => medicacao.user)
+  // medicacao?: MedicacaoEntity[];
 }

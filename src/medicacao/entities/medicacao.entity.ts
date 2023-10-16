@@ -25,8 +25,8 @@ export class MedicacaoEntity {
     @Column({ name: 'medPerId', nullable: false })
     medPerId: number;
 
-    @ManyToOne(() => UserEntity, (user) => user.medicacao)
-    @JoinColumn({ name: 'medUsuId', referencedColumnName: 'usuId' })
-    user?: UserEntity;
+    // @ManyToOne(() => UserEntity, (user) => user.medicacao)
+    // @JoinColumn({ name: 'medPerId', referencedColumnName: 'usuId' })
+    // user?: UserEntity;
 
 }

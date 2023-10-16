@@ -12,6 +12,8 @@ import { ProfileIdModule } from 'src/profile/profile-id/profile-id.module';
 @Module({
   imports: [TypeOrmModule.forFeature([TimeEntity]), UserModule, ProfileModule, ProfileIdModule],
   providers: [TimeService],
-  controllers: [TimeController]
+  controllers: [TimeController],
+  exports: [TimeService],
+
 })
 export class TimeModule {}

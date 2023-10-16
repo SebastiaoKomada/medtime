@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TimeEntity } from './entities/time.entity';
 import { Repository } from 'typeorm';
@@ -26,4 +26,19 @@ export class TimeService {
             horPerId,
         })
     }
+
+    async findTimeById(horId: number): Promise<TimeEntity> {
+        const time = await this.timeRepository.findOne({
+          where: {
+            horId,
+          }
+        });
+    
+        if (!time) {
+          throw new NotFoundException(`usuId: ${horId} Not Found`);
+        }
+    
+        return time;
+    }
+    
 }

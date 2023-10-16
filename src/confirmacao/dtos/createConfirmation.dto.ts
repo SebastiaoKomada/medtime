@@ -1,9 +1,7 @@
+import { Type } from "class-transformer";
 import { IsDate, IsNumber } from "class-validator";
 
-export class CreateConfirmacaoDto {
-
-    @IsNumber()
-    conPerId: number;
+export class CreateConfirmationDto {
 
     @IsNumber()
     conMedId: number;
@@ -12,5 +10,6 @@ export class CreateConfirmacaoDto {
     conHorId: number;
 
     @IsDate()
+    @Type(() => Date)
     conData: Date;
 }

@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ProfileIdService } from './profile/profile-id/profile-id.service';
 import { ProfileIdModule } from './profile/profile-id/profile-id.module';
 import { TimeModule } from './time/time.module';
+import { ConfirmationModule } from './confirmacao/confirmation.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +28,7 @@ import { TimeModule } from './time/time.module';
     entities: [`${__dirname}/**/*entity{.js,.ts}`],
     migrations: [`${__dirname}/migrations/{.ts,*.js}`],
     migrationsRun: true
-  }), UserModule, ProfileModule, CacheModule, AuthModule, JwtModule, ProfileIdModule, TimeModule],
+  }), UserModule, ProfileModule, CacheModule, AuthModule, JwtModule, ProfileIdModule, TimeModule, ConfirmationModule],
   controllers: [],
   providers: [  {
     provide: APP_GUARD,

@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'tblconfirmacao' })
-export class MedicacaoEntity {
+export class ConfirmationEntity {
  
     @PrimaryGeneratedColumn()
     conId: number;
