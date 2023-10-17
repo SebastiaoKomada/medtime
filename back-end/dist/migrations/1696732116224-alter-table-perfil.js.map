@@ -1,0 +1,1 @@
+{"version":3,"file":"1696732116224-alter-table-perfil.js","sourceRoot":"","sources":["../../src/migrations/1696732116224-alter-table-perfil.ts"],"names":[],"mappings":";;;AAEA,MAAa,6BAA6B;IAE/B,KAAK,CAAC,EAAE,CAAC,WAAwB;QACpC,WAAW,CAAC,KAAK,CAAC;;SAEjB,CAAC,CAAA;IACN,CAAC;IAEM,KAAK,CAAC,IAAI,CAAC,WAAwB;IAC1C,CAAC;CAEJ;AAXD,sEAWC"}
