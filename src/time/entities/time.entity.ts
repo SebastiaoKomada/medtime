@@ -28,7 +28,7 @@ export class TimeEntity {
 
   @ManyToOne(() => MedicationEntity, (medication) => medication.times)
   @JoinColumn({ name: 'horMedId', referencedColumnName: 'medId' })
-  medication?: MedicationEntity;
+  medication: MedicationEntity;
 
   @OneToMany(() => ConfirmationEntity, (confirmation) => confirmation.times)
   confirmation?: ConfirmationEntity[];

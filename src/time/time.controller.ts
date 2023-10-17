@@ -22,15 +22,15 @@ export class TimeController {
     private readonly profileIdService: ProfileIdService,
   ) {}
 
-  @UsePipes(ValidationPipe)
-  @Post()
-  async createPerfil(
-    @Body() createTimeDto: CreateTimeDto,
-    @UserId() horUsuId: number,
-    @Param('horPerdId') horPerId: number,
-  ): Promise<TimeEntity> {
-    const newPerId = this.profileIdService.getProfileId();
-    console.log(newPerId)
-    return this.timeService.createTime(createTimeDto, horUsuId, newPerId);
-  }
+  // @UsePipes(ValidationPipe)
+  // @Post()
+  // async createPerfil(
+  //   @Body() createTimeDto: CreateTimeDto,
+  //   @UserId() horUsuId: number,
+  //   @Param('horPerdId') horPerId: number,
+  // ): Promise<TimeEntity> {
+  //   const newPerId = this.profileIdService.getProfileId();
+  //   console.log(newPerId)
+  //   return this.timeService.createTime(createTimeDto, horUsuId, newPerId);
+  // }
 }

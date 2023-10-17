@@ -7,7 +7,6 @@ export class ReturnMedicationDto {
   medQuantidade: number;
   medDataInicio: string;
   medDataFim: string;
-  usuTelefone: string;
   times?: ReturnTimeDto[];
 
   constructor(medicationEntity: MedicationEntity) {
@@ -16,7 +15,9 @@ export class ReturnMedicationDto {
     this.medQuantidade = medicationEntity.medQuantidade;
     this.medDataInicio = medicationEntity.medDataInicio;
     this.medDataFim = medicationEntity.medDataFim;
-    
-    this.times = medicationEntity.times ? medicationEntity.times.map((times) => new ReturnTimeDto(times)) : undefined;
+
+    this.times = medicationEntity.times
+      ? medicationEntity.times.map((time) => new ReturnTimeDto(time))
+      : undefined;
   }
 }
