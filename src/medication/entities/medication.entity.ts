@@ -1,4 +1,5 @@
 //import { UserEntity } from "src/user/entities/user.entity";
+import { ConfirmationEntity } from "src/confirmation/entities/confirmation.entity";
 import { TimeEntity } from "src/time/entities/time.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -28,6 +29,9 @@ export class MedicationEntity {
 
     @OneToMany(() => TimeEntity, (times) => times.medication)
     times?: TimeEntity[];
+
+    @OneToMany(() => ConfirmationEntity, (confirmation) => confirmation.medication)
+    confirmation?: ConfirmationEntity[];
 
 
 }

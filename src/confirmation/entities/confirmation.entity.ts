@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { MedicationEntity } from "src/medication/entities/medication.entity";
+import { TimeEntity } from "src/time/entities/time.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: 'tblconfirmacao' })
 export class ConfirmationEntity {
@@ -17,4 +19,16 @@ export class ConfirmationEntity {
 
     @Column({ name: 'conData', nullable: false })
     conData: Date; 
+
+
+  @ManyToOne(() => MedicationEntity, (medication) => medication.confirmation)
+  @JoinColumn({ name: 'conMedId', referencedColumnName: 'medId' })
+  medication?: MedicationEntity;
+
+
+  @ManyToOne(() => TimeEntity, (times) => times.confirmation)
+  @JoinColumn({ name: 'conHorId', referencedColumnName: 'horId' })
+  times?: MedicationEntity;
+
+
 }

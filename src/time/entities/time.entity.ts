@@ -1,6 +1,7 @@
 import { MedicationEntity } from "src/medication/entities/medication.entity";
 import { ProfileEntity } from "../../profile/entities/profile.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ConfirmationEntity } from "src/confirmation/entities/confirmation.entity";
 
 @Entity({ name: 'tblhorario' })
 export class TimeEntity {
@@ -28,4 +29,7 @@ export class TimeEntity {
   @ManyToOne(() => MedicationEntity, (medication) => medication.times)
   @JoinColumn({ name: 'horMedId', referencedColumnName: 'medId' })
   medication?: MedicationEntity;
+
+  @OneToMany(() => ConfirmationEntity, (confirmation) => confirmation.times)
+  confirmation?: ConfirmationEntity[];
 }
