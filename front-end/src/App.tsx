@@ -8,7 +8,6 @@ function App() {
   return (
     <div className="App">
       <NavBar />
-      <h1>React Router</h1>
       <Outlet />
     </div>
   );

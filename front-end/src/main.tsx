@@ -7,6 +7,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import App from './App.tsx';
 // import Profile from './routes/Profile/index.tsx';
 import ErrorPage from './components/errorPage';
+import ConfirmMedication from './routes/ConfirmMedication/index.tsx';
 import Home from './routes/Home';
 import LogIn from './routes/LogIn';
 // import ProfileDetails from './routes/ProfileDetails';
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/logIn',
         element: <LogIn />,
+      },
+      {
+        path: '/confirmMedication',
+        element: <ConfirmMedication />,
       },
       {
         /*redireciona uma pagina que ja nao existe para uma pre definida */
