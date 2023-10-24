@@ -1,7 +1,9 @@
+import { ProfileIdService } from 'src/profile/profile-id/profile-id.service';
 import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Post,
   UsePipes,
@@ -23,6 +25,7 @@ import { UserId } from 'src/decorators/user-id.decorator';
 export class MedicationController {
   constructor(
     private readonly medicationService: MedicationService,
+    private readonly profileIdService: ProfileIdService,
   ) {}
 
   // @UsePipes(ValidationPipe)
@@ -33,12 +36,22 @@ export class MedicationController {
   // }
 
   @Get('/:medId')
-  async getUserById(
+  async getMedicationByIdUsingRelations(
     @Param('medId') medId: number,
   ): Promise<ReturnMedicationDto> {
-    return new ReturnMedicationDto(
-      await this.medicationService.getMedicationByIdUsingRelations(medId),
-    );
+    const medicationEntity = await this.medicationService.getMedicationByIdUsingRelations(medId);
+
+    if (!medicationEntity) {
+      throw new NotFoundException(`medId: ${medId} Not Found`);
+    }
+  
+    return new ReturnMedicationDto(medicationEntity);
+  }
+
+  @Get()
+  async gettAllMedicationByPerId(@Param('medPerId') medPerId: number): Promise<MedicationEntity[]> {
+    const newPerId = this.profileIdService.getProfileId();
+    return this.medicationService.gettAllMedicationByPerId(newPerId);
   }
 
   @Post('create')

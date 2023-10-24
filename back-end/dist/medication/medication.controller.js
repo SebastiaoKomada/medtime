@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MedicationController = void 0;
+const profile_id_service_1 = require("../profile/profile-id/profile-id.service");
 const common_1 = require("@nestjs/common");
 const medication_service_1 = require("./medication.service");
 const roles_decorator_1 = require("../decorators/roles.decorator");
@@ -20,11 +21,20 @@ const user_enum_1 = require("../user/enum/user.enum");
 const returnMedication_dto_1 = require("./dtos/returnMedication.dto");
 const user_id_decorator_1 = require("../decorators/user-id.decorator");
 let MedicationController = class MedicationController {
-    constructor(medicationService) {
+    constructor(medicationService, profileIdService) {
         this.medicationService = medicationService;
+        this.profileIdService = profileIdService;
     }
-    async getUserById(medId) {
-        return new returnMedication_dto_1.ReturnMedicationDto(await this.medicationService.getMedicationByIdUsingRelations(medId));
+    async getMedicationByIdUsingRelations(medId) {
+        const medicationEntity = await this.medicationService.getMedicationByIdUsingRelations(medId);
+        if (!medicationEntity) {
+            throw new common_1.NotFoundException(`medId: ${medId} Not Found`);
+        }
+        return new returnMedication_dto_1.ReturnMedicationDto(medicationEntity);
+    }
+    async gettAllMedicationByPerId(medPerId) {
+        const newPerId = this.profileIdService.getProfileId();
+        return this.medicationService.gettAllMedicationByPerId(newPerId);
     }
     async createMedicationAndTimes(data, userId) {
         const result = await this.medicationService.createMedicationAndTimes(data.medication, data.horarios, userId);
@@ -38,7 +48,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
-], MedicationController.prototype, "getUserById", null);
+], MedicationController.prototype, "getMedicationByIdUsingRelations", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Param)('medPerId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], MedicationController.prototype, "gettAllMedicationByPerId", null);
 __decorate([
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
@@ -50,6 +67,7 @@ __decorate([
 exports.MedicationController = MedicationController = __decorate([
     (0, roles_decorator_1.Roles)(user_enum_1.UserType.User),
     (0, common_1.Controller)('medication'),
-    __metadata("design:paramtypes", [medication_service_1.MedicationService])
+    __metadata("design:paramtypes", [medication_service_1.MedicationService,
+        profile_id_service_1.ProfileIdService])
 ], MedicationController);
 //# sourceMappingURL=medication.controller.js.map

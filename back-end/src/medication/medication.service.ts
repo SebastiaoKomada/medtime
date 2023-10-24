@@ -18,28 +18,38 @@ export class MedicationService {
     private readonly profileIdService: ProfileIdService,
   ) {}
 
-  async createMedication(
-    createMedicationDto: CreateMedicationDto,
-    medPerId: number,
-  ): Promise<MedicationEntity> {
-    return this.medicationRepository.save({
-      ...createMedicationDto,
-      medPerId,
-    });
+  // async createMedication(
+  //   createMedicationDto: CreateMedicationDto,
+  //   medPerId: number,
+  // ): Promise<MedicationEntity> {
+  //   return this.medicationRepository.save({
+  //     ...createMedicationDto,
+  //     medPerId,
+  //   });
+  // }
+
+  async gettAllMedicationByPerId(medPerId: number): Promise<MedicationEntity[]> {
+    return this.medicationRepository
+      .find({
+        where: {
+          medPerId,
+        },
+      })
+      .catch(() => undefined);
   }
 
   async findMedicationById(medId: number): Promise<MedicationEntity> {
-    const time = await this.medicationRepository.findOne({
+    const findMedication = await this.medicationRepository.findOne({
       where: {
         medId,
       },
     });
 
-    if (!time) {
+    if (!findMedication) {
       throw new NotFoundException(`usuId: ${medId} Not Found`);
     }
 
-    return time;
+    return findMedication;
   }
 
   async getMedicationByIdUsingRelations(medId: number): Promise<MedicationEntity> {
@@ -77,6 +87,4 @@ export class MedicationService {
     return response;
   }
   
-  
-
 }

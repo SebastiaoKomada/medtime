@@ -19,6 +19,7 @@ export class PerfilController {
   async gettAllPerfilByUserId(@UserId() perUsuId: number): Promise<ProfileEntity[]> {
     return this.ProfileService.gettAllPerfilByUserId(perUsuId);
   }
+  
   @UsePipes(ValidationPipe)
   @Post()
   async createPerfil(@Body() createProfilelDto: CreateProfileDto, @UserId() perUsuId: number): Promise<ProfileEntity> {

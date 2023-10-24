@@ -26,22 +26,25 @@ let MedicationService = class MedicationService {
         this.timeRepository = timeRepository;
         this.profileIdService = profileIdService;
     }
-    async createMedication(createMedicationDto, medPerId) {
-        return this.medicationRepository.save({
-            ...createMedicationDto,
-            medPerId,
-        });
+    async gettAllMedicationByPerId(medPerId) {
+        return this.medicationRepository
+            .find({
+            where: {
+                medPerId,
+            },
+        })
+            .catch(() => undefined);
     }
     async findMedicationById(medId) {
-        const time = await this.medicationRepository.findOne({
+        const findMedication = await this.medicationRepository.findOne({
             where: {
                 medId,
             },
         });
-        if (!time) {
+        if (!findMedication) {
             throw new common_1.NotFoundException(`usuId: ${medId} Not Found`);
         }
-        return time;
+        return findMedication;
     }
     async getMedicationByIdUsingRelations(medId) {
         return this.medicationRepository.findOne({
