@@ -1,10 +1,8 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { GlobalContext } from '../../../shared/hooks/useGlobalContext';
 import { useRequest } from '../../../shared/hooks/useRequest';
 
 const ConfirmMedication = () => {
-  const { globalData } = useContext(GlobalContext);
   const { getRequest, postRequest, confirmationData } = useRequest();
 
   const getData = async () => {
@@ -24,6 +22,7 @@ const ConfirmMedication = () => {
       {/* {confirmationData.map((info, index) => (
           <h1 key={index}>{info}</h1>
         ))} */}
+      {confirmationData}
       <button onClick={postData}>Confirmar Medicação</button>
     </div>
   );

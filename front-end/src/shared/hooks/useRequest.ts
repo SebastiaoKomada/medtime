@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+import { connectionAPIPost } from './../functions/connection/connectionAPI';
+
 export const useRequest = () => {
   const [confirmationData, setConfirmationData] = useState(false);
 
@@ -14,15 +16,15 @@ export const useRequest = () => {
     });
   };
 
-  const postRequest = async (url: string, body: any) => {
+  const postRequest = async (url: string, body: unknown) => {
     setConfirmationData(true);
-    const returnData = await axios({
-      method: 'post',
-      url: url,
-      data: body,
-    }).then((result) => {
-      return result.data;
-    });
+    const returnData = await connectionAPIPost(url, body)
+      .then((result) => {
+        return result;
+      })
+      .catch((error: Error) => {
+        return error.message, 'error';
+      });
 
     setConfirmationData(false);
     return returnData;

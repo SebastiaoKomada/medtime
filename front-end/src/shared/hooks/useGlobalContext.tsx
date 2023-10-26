@@ -9,7 +9,7 @@ interface GlobalContextProps {
   setGlobalData: (globalData: GlobalData) => void;
 }
 
-export const GlobalContext = createContext({} as GlobalContextProps);
+const GlobalContext = createContext({} as GlobalContextProps);
 
 interface GlobalProvidersProps {
   children: React.ReactNode;
@@ -25,18 +25,18 @@ export const GlobalProvider = ({ children }: GlobalProvidersProps) => {
   );
 };
 
-export const useGlobalContext = () => { 
-    const {globalData, setGlobalData} = useContext(GlobalContext);
+export const useGlobalContext = () => {
+  const { globalData, setGlobalData } = useContext(GlobalContext);
 
-    const setAcessToken = (acessToken: string) =>{
-        setGlobalData({
-            ...globalData,
-            acessToken,
-        });
-    };
+  const setAcessToken = (acessToken: string) => {
+    setGlobalData({
+      ...globalData,
+      acessToken,
+    });
+  };
 
-    return(
-        acessToken: globalData?.acessToken,
-        setAcessToken,
-    );
+  return {
+    acessToken: globalData?.acessToken,
+    setAcessToken,
+  };
 };
