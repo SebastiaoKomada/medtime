@@ -1,9 +1,11 @@
+import 'index.sass';
+
 import { useEffect } from 'react';
 
 import { useRequest } from '../../../shared/hooks/useRequest';
 
 const ConfirmMedication = () => {
-  const { getRequest, postRequest, confirmationData } = useRequest();
+  const { getRequest, postRequest } = useRequest();
 
   const getData = async () => {
     getRequest('http://localhost:5005/medication');
@@ -22,7 +24,6 @@ const ConfirmMedication = () => {
       {/* {confirmationData.map((info, index) => (
           <h1 key={index}>{info}</h1>
         ))} */}
-      {confirmationData}
       <button onClick={postData}>Confirmar Medicação</button>
     </div>
   );

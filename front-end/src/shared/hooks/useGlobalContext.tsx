@@ -1,4 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+
+import { getAuthorizationToken, setAuthorizationToken } from '../functions/connection/auth';
 
 interface GlobalData {
   acessToken?: string;
@@ -28,11 +30,19 @@ export const GlobalProvider = ({ children }: GlobalProvidersProps) => {
 export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
+  useEffect(() => {
+    const token = getAuthorizationToken();
+    if (token) {
+      setAcessToken(token);
+    }
+  }, []);
+
   const setAcessToken = (acessToken: string) => {
-    setGlobalData({
-      ...globalData,
-      acessToken,
-    });
+    setAuthorizationToken(acessToken),
+      setGlobalData({
+        ...globalData,
+        acessToken,
+      });
   };
 
   return {

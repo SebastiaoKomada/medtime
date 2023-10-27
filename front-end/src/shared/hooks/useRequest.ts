@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { connectionAPIPost } from './../functions/connection/connectionAPI';
 
 export const useRequest = () => {
-  const [confirmationData, setConfirmationData] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getRequest = async (url: string) => {
-    setConfirmationData(true);
+    setLoading(true);
     return await axios({
       method: 'get',
       url: url,
@@ -16,22 +16,25 @@ export const useRequest = () => {
     });
   };
 
-  const postRequest = async (url: string, body: unknown) => {
-    setConfirmationData(true);
-    const returnData = await connectionAPIPost(url, body)
+  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
+    setLoading(true);
+
+    const returnData = await connectionAPIPost<T>(url, body)
       .then((result) => {
         return result;
       })
       .catch((error: Error) => {
-        return error.message, 'error';
+        console.log(error.message, 'error');
+        // setNotification(error.message, 'error');
+        return undefined;
       });
 
-    setConfirmationData(false);
+    setLoading(false);
     return returnData;
   };
 
   return {
-    confirmationData,
+    loading,
     getRequest,
     postRequest,
   };
