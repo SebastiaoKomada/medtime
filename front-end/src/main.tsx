@@ -5,19 +5,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouteObject, RouterProvider } from 'react-router-dom';
 
-import App from './App.tsx';
-import ErrorPage from './modules/components/errorPage/index.tsx';
-import { ConfirmationRoutes } from './modules/routes/ConfirmMedication/routeConfirmation.tsx';
+import LandingPage from './routes/LandingPage/index.tsx';
+import ErrorPage from './shared/components/errorPage/index.tsx';
+import { ConfirmationRoutes } from './routes/ConfirmMedication/routeConfirmation.tsx';
 import { GlobalProvider } from './shared/hooks/useGlobalContext.tsx';
+import { LoginRoutes } from './routes/LogIn/routeLogin.tsx';
+import { LandingPageRoutes } from './routes/LandingPage/route.tsx';
 
-const mainRoutes: RouteObject[] = [
-  {
-    path: '/',
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-];
-const router: RemixRouter = createBrowserRouter([...mainRoutes, ...ConfirmationRoutes]);
+const router: RemixRouter = createBrowserRouter([...LandingPageRoutes, ...ConfirmationRoutes, ...LoginRoutes]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

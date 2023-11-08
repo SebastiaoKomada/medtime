@@ -36,7 +36,6 @@ export const useGlobalContext = () => {
       setAcessToken(token);
     }
   }, []);
-
   const setAcessToken = (acessToken: string) => {
     setAuthorizationToken(acessToken),
       setGlobalData({
@@ -50,3 +49,4 @@ export const useGlobalContext = () => {
     setAcessToken,
   };
 };
+
