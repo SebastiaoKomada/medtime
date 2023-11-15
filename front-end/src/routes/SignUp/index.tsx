@@ -1,9 +1,10 @@
 
+
 const SignUp = () => {
   return (
-      <div >
-          <h1>cadastrar</h1>
-      </div>
+    <div >
+      <h1>cadastrar</h1>
+    </div>
   )
 }
 

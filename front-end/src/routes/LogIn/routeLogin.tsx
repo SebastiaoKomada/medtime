@@ -1,5 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import LogIn from ".";
+import React from "react";
 
 export enum LoginRoutesEnum {
     LOGIN ='/logIn'

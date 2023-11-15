@@ -1,41 +1,70 @@
-import axios from 'axios';
 import { useState } from 'react';
 
-import { connectionAPIPost } from './../functions/connection/connectionAPI';
+import ConnectionAPI, { MethodType, connectionAPIPost } from './../functions/connection/connectionAPI';
+import { HomeRoutesEnum } from '../../routes/Home/routeHome';
+import { NavigateFunction } from 'react-router-dom';
+import { URL_AUTH } from '../constants/urls';
+import { setAuthorizationToken } from '../functions/connection/auth';
+import { AuthType } from '../types/AuthType';
+import { useGlobalContext } from './useGlobalContext';
+import { ERROR_CONNECTION } from '../constants/errorStatus';
 
 export const useRequest = () => {
+  const { setNotification, setUser } = useGlobalContext();
   const [loading, setLoading] = useState(false);
 
-  const getRequest = async (url: string) => {
-    setLoading(true);
-    return await axios({
-      method: 'get',
-      url: url,
-    }).then((result) => {
-      return result.data;
-    });
-  };
-
-  const postRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
+  const request = async <T>(
+    url: string,
+    method: MethodType,
+    saveGlobal?: (object: T) => void,
+    body?: unknown,
+    message?: string,
+  ): Promise<T | undefined> => 
+  {
     setLoading(true);
 
-    const returnData = await connectionAPIPost<T>(url, body)
+    const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
       .then((result) => {
+        if (saveGlobal) {
+          saveGlobal(result);
+        }
+        if (message) {
+          setNotification('Sucesso!', 'success', message);
+        }
         return result;
       })
       .catch((error: Error) => {
-        console.log(error.message, 'error');
-        // setNotification(error.message, 'error');
+        setNotification(error.message, 'error');
         return undefined;
       });
 
     setLoading(false);
-    return returnData;
+
+    return returnObject;
   };
+
+  const authRequest = async (navigate: NavigateFunction, body: unknown): Promise<void> => {
+    setLoading(true);
+
+    await connectionAPIPost<AuthType>(URL_AUTH, body)
+      .then((result) => {
+        setUser(result.user);
+        setAuthorizationToken(result.accessToken);
+        navigate(HomeRoutesEnum.HOME);
+        return result;
+      })
+      .catch(() => {
+        setNotification(ERROR_CONNECTION, 'error');
+        return undefined;
+      });
+
+    setLoading(false);
+  };
+
 
   return {
     loading,
-    getRequest,
-    postRequest,
+    authRequest,
+    request,
   };
 };

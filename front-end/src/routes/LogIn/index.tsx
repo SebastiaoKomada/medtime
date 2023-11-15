@@ -3,15 +3,13 @@ import { Form, Input, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "../../shared/hooks/useRequest";
 import '../../routes/LogIn/index.sass';
-import { UserType } from "./UserTypes";
 
 const LogIn = () => {
 
   const navigate = useNavigate();
-
-  const [userEmail, setEmail] = useState('');
-  const [userPassword, setPassword] = useState('');
-  const { postRequest, loading } = useRequest();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { authRequest, loading } = useRequest();
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -22,9 +20,9 @@ const LogIn = () => {
   };
 
   const handleLogin = () => {
-    postRequest<UserType>('http://localhost:5005/auth', {
-      userEmail,
-      userPassword,
+    authRequest(navigate , {
+      email: email,
+      password: password,
     });
   };
 
@@ -37,10 +35,10 @@ const LogIn = () => {
       <div className="content-right">
         <Form name="form_login" layout="vertical" style={{ maxWidth: 600 }}>
           <Form.Item name="email" label="E-mail" rules={[{ required: true, message: 'Please input your e-mail!' }]}>
-            <Input placeholder="Digite seu e-mail" onChange={handleEmail} />
+            <Input placeholder="Digite seu e-mail" onChange={handleEmail} value={email} />
           </Form.Item>
           <Form.Item name="password" label="Senha" rules={[{ required: true, message: 'Please input your password!' }]}>
-            <Input type="password" placeholder="Digite sua senha" onChange={handlePassword} />
+            <Input type="password" placeholder="Digite sua senha" onChange={handlePassword} value={password}/>
           </Form.Item>
           <Button type="primary" htmlType="submit" loading={loading} onClick={handleLogin}>
             Entrar

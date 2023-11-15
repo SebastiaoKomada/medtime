@@ -1,13 +1,20 @@
+import React from "react";
+
 import "./index.sass";
 
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from 'antd'
 import { useRequest } from "../../shared/hooks/useRequest";
+import { useDataContext } from "../../shared/hooks/useDataContext";
+import { URL_GET_MEDICATION } from "../../shared/constants/urls";
+import { MethodsEnum } from "../../shared/enums/methods.enum";
+import { MedicationType } from "../../shared/types/MedicationType";
 
 
 const ConfirmMedication = () => {
-  const { getRequest, postRequest } = useRequest();
+  const { medication, setMedication } = useDataContext();
+  const { request } = useRequest();
   const [loadings, setLoadings] = useState<boolean[]>([]);
 
   const enterLoading = (index: number) => {
@@ -26,63 +33,54 @@ const ConfirmMedication = () => {
     }, 1000);
   };
 
-  const getData = async () => {
-    getRequest('http://localhost:5005/medication');
-  };
-
-  const postData = () => {
-    postRequest('http://localhost:5005/confirmation/1/1', { conData: '2023-11-23' });
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+  useEffect(() =>{
+    request<MedicationType[]>(URL_GET_MEDICATION, MethodsEnum.GET, setMedication);
+  },[])
   return (
     <div className="containerCon">
       {/* {confirmationData.map((info, index) => (
           <h1 key={index}>{info}</h1>
         ))} */}
-        <div className="form-image">
-          <img src="/sunshine.png" alt=""/>
+      <div className="form-image">
+        <img src="/sunshine.png" alt="" />
+      </div>
+      <div className="form">
+        <div className="form-header">
+
+          <div className="title">
+          {medication.map((medication) => <h1 key={medication.medId}>{medication.medNome}</h1>)}
+          </div>
         </div>
-        <div className="form">
-          <div className="form-header">
 
-            <div className="title">
-              <h1>Omeprazol</h1>
-            </div>
+        <div className="info-group">
+          <div className="info-box">
+            <label>Data inicio </label>
+            {medication.map((medication) => <h2 key={medication.medId}>{medication.medDataInicio}</h2>)}
           </div>
 
-          <div className="info-group">
-            <div className="info-box">
-              <label>Data inicio </label>
-              <h2>30/10/2023</h2>
-            </div>
-
-            <div className="info-box">
-              <label>Forma</label>
-              <h2>Comprimido</h2>
-            </div>
-
-            <div className="info-box">
-              <label>Data final</label>
-              <h2>30/10/2024</h2>
-            </div>
-
-            <div className="info-box">
-              <label >Hora</label>
-              <h2>15:00</h2>
-            </div>
+          <div className="info-box">
+            <label>Forma</label>
+            {medication.map((medication) => <h2 key={medication.medId}>{medication.MedForma}</h2>)}
           </div>
 
-          <div className="continue-button">
-            <Button loading={loadings[0]} onClick={(postData) => enterLoading(0)}>
-              <a href="#">Confirmar</a>
-            </Button>
+          <div className="info-box">
+            <label>Data final</label>
+            {medication.map((medication) => <h2 key={medication.medId}>{medication.medDataFim}</h2>)}
           </div>
-          
+
+          <div className="info-box">
+            <label >Hora</label>
+            <h2>15:00</h2>
+          </div>
         </div>
+
+        <div className="continue-button">
+          <Button loading={loadings[0]} onClick={() => enterLoading(0)}>
+            <a href="#">Confirmar</a>
+          </Button>
+        </div>
+
+      </div>
     </div>
   );
 };
