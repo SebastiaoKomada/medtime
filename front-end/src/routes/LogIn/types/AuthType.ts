@@ -1,4 +1,4 @@
-import { UserType } from "./UserTypes";
+import { UserType } from "./UserType";
 
 export interface AuthType {
     accessToken: string;

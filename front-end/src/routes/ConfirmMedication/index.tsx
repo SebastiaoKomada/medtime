@@ -37,7 +37,7 @@ const ConfirmMedication = () => {
     request<MedicationType[]>(URL_GET_MEDICATION, MethodsEnum.GET, setMedication);
   },[])
   return (
-    <div className="containerCon">
+    <div className="container___confirmation">
       {/* {confirmationData.map((info, index) => (
           <h1 key={index}>{info}</h1>
         ))} */}

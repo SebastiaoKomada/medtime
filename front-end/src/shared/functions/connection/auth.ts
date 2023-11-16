@@ -1,10 +1,8 @@
-import { redirect } from 'react-router-dom';
-import { LoginRoutesEnum } from '../../../routes/LogIn/routeLogin';
 import { URL_USER } from '../../constants/urls';
 import { AUTHORIZATION_KEY } from './../../constants/authorizationConstants';
 import { getItemStorage, removeItemStorage, setItemStorage } from './storageProxy';
 import { connectionAPIGet } from './connectionAPI';
-import { UserType } from '../../types/UserTypes';
+import { UserType } from '../../../routes/LogIn/types/UserType';
 
 export const unsetAuthorizationToken = () => removeItemStorage(AUTHORIZATION_KEY);
 
@@ -14,20 +12,20 @@ export const setAuthorizationToken = (token?: string) => {
   }
 };
 
-export const verifyLoggedIn = async () => {
+export const verifyLogin = async(setUser:(user: UserType) => void, user?: UserType,) => {
   const token = getAuthorizationToken();
-  if (!token) {
-    return redirect(LoginRoutesEnum.LOGIN);
+  if(!token){
+      location.href = '/';
   }
-  const user = await connectionAPIGet<UserType>(URL_USER).catch(() => {
-    unsetAuthorizationToken();
-  });
-
-  if (!user) {
-    return redirect(LoginRoutesEnum.LOGIN);
+  if(!user){
+      await connectionAPIGet<UserType>(URL_USER).then((userReturn) => {
+          setUser(userReturn);
+      }).catch(() => {
+          unsetAuthorizationToken();
+          location.href = '/';
+      });
   }
-
   return null;
-};
+}
 
 export const getAuthorizationToken = () => getItemStorage(AUTHORIZATION_KEY);

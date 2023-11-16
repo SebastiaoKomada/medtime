@@ -2,14 +2,15 @@ import { useState } from 'react';
 
 import ConnectionAPI, { MethodType, connectionAPIPost } from './../functions/connection/connectionAPI';
 import { HomeRoutesEnum } from '../../routes/Home/routeHome';
-import { NavigateFunction } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { URL_AUTH } from '../constants/urls';
 import { setAuthorizationToken } from '../functions/connection/auth';
-import { AuthType } from '../types/AuthType';
 import { useGlobalContext } from './useGlobalContext';
 import { ERROR_CONNECTION } from '../constants/errorStatus';
+import { AuthType } from '../../routes/LogIn/types/AuthType';
 
 export const useRequest = () => {
+  const navigate  = useNavigate()
   const { setNotification, setUser } = useGlobalContext();
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +44,7 @@ export const useRequest = () => {
     return returnObject;
   };
 
-  const authRequest = async (navigate: NavigateFunction, body: unknown): Promise<void> => {
+  const authRequest = async (body: unknown): Promise<void> => {
     setLoading(true);
 
     await connectionAPIPost<AuthType>(URL_AUTH, body)
