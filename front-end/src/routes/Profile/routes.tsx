@@ -1,6 +1,7 @@
 import { RouteObject } from "react-router-dom";
 
-import Profile from './index';
+import Profile from '.';
+import React from "react";
 
 export enum ProfileRoutesEnum {
   PROFILE = '/profile'

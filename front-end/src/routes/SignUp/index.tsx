@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { useRequest } from "../../shared/hooks/useRequest";
-import './index.sass';
+import './index.css';
 import { URL_USER } from "../../shared/constants/urls";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,6 @@ const SignUp = () => {
   const [usuEmail, setEmail] = useState('');
   const [usuSenha, setPassword] = useState('');
   const [usuTelefone, setTelefone] = useState('');
-  const { createUserRequest, loading } = useRequest();
 
 
   const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,23 +29,18 @@ const SignUp = () => {
   };
 
   const handleLogin = () => {
-    createUserRequest(URL_USER, {
-      usuNome,
-      usuEmail,
-      usuSenha,
-      usuTelefone
-    });
+    null
   };
 
   return (
-    <div className="body__signup">
-      <div className="center__signup">
+
         <div className="container__signup">
           <div className="content-left__signup">
             <h1 className="h1__signup">Cadastro</h1>
             <p className="p__signup">Mantenha os horários em dia!</p>
           </div>
           <div className="content-right__signup">
+            <div className="card__signup  ">
             <Form name="form_signup" layout="vertical" style={{ maxWidth: 800 }}>
               <Form.Item name="name" label="Nome" rules={[{ required: true, message: 'Please input your name!' }]} style={{ fontSize: 20 }}>
                 <Input placeholder="Digite seu nome" value={usuNome} onChange={handleName}/>
@@ -60,14 +54,14 @@ const SignUp = () => {
               <Form.Item name="telefone" label="Telefone" rules={[{ required: true, message: 'Please input your telefone!' }]}>
                 <Input type="phone" placeholder="Digite seu telefone" value={usuTelefone} onChange={handleTelefone}/>
               </Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading} onClick={handleLogin}>
+              <button className="btn__signup" onClick={handleLogin}>
                 Criar
-              </Button>
+              </button>
             </Form>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+
   )
 }
 

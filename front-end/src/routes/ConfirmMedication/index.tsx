@@ -1,8 +1,7 @@
-import React from "react";
 
-import "./index.sass";
+import "./index.css";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Button } from 'antd'
 import { useRequest } from "../../shared/hooks/useRequest";

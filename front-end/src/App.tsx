@@ -1,4 +1,3 @@
-import './App.css';
 
 import {RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import type { Router as RemixRouter } from '@remix-run/router';
@@ -14,6 +13,9 @@ import { LoginRoutes } from './routes/LogIn/routes';
 import { SignupRoutes } from './routes/SignUp/routes';
 import { HomeRoutes } from './routes/Home/routeHome';
 import { ProfileRoutes } from './routes/Profile/routes';
+import "./index.css"
+import { AddProfileRoutes } from './routes/Profile/pages/addProfile/routes';
+import { EditProfileRoutes } from './routes/Profile/pages/editProfile/routes';
 
 function App() {
   const { user, setUser } = useGlobalContext();
@@ -28,6 +30,8 @@ const routes: RouteObject[] = [
 ];
   const routesLoggedIn: RouteObject[] = [
     ...ProfileRoutes,
+    ...AddProfileRoutes,
+    ...EditProfileRoutes,
     ...HomeRoutes
   ].map((route) => ({
     ...route,

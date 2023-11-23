@@ -1,50 +1,58 @@
-import { useNavigate } from 'react-router-dom';
-import { URL_SET_PROFILE } from '../../shared/constants/urls';
-import { useGlobalContext } from '../../shared/hooks/useGlobalContext';
-import { useRequest } from '../../shared/hooks/useRequest';
-import { ERROR_SET_PROFILE } from '../../shared/constants/errorStatus';
-import { ProfileType } from '../LogIn/types/UserType';
-import { HomeRoutesEnum } from '../Home/routeHome';
-import React from 'react'; 
-import { MethodsEnum } from '../../shared/enums/methods.enum';
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { Button, Row } from "antd";
+import { Link } from "react-router-dom";
+import "./styles.css";
 
-const Profile = () => {
-  const { user, setProfile , setNotification } = useGlobalContext();
-  const { request } = useRequest();
-  const navigate = useNavigate();
+interface ButtonItem {
+  imageUrl: string;
+}
 
-  const handleProfileClick = async (perfilId: any): Promise<void> => {
-    try {
-      const result: ProfileType | undefined = await request(`${URL_SET_PROFILE}/${perfilId}`, MethodsEnum.POST, setProfile);
+const Profile: React.FC = () => {
+  const [buttons, setButtons] = useState<ButtonItem[]>([]);
 
-      if (result !== undefined) {
-        setProfile(result);
-        navigate(HomeRoutesEnum.HOME);
-      } else {
-        setNotification("Perfil não encontrado", 'error');
-      }
-    } catch (error) {
-      setNotification(ERROR_SET_PROFILE, 'error');
+  const handleAddButton = () => {
+    if (buttons.length < 5) {
+      setButtons((antButtons) => [
+        ...antButtons,
+        {
+          imageUrl: "profile.png",
+        },
+      ]);
     }
   };
 
   return (
-    <div>
-      <h1>Perfis:</h1>
-      <ul>
-        {user?.perfis.map((perfil) => (
-          <li key={perfil.perId}>
-            <h2>Perfil {perfil.perId}</h2>
-            <p>Nome: {perfil.perNome}</p>
-            <p>Imagem: {perfil.perImagem}</p>
-            <button onClick={() => handleProfileClick(perfil.perId)}>
-              Selecionar
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="container__profile">
+      <div className="Choice text-center">
+        <h1 className="title text-5xl font-bold mb-4 mt-10 text-white">
+          Quem é o paciente?
+        </h1>
+
+        <Row className="image-container">
+          {buttons.map((button, index) => (
+            <img
+              key={index}
+              className="btn-img mr-5 mt-5"
+              src={button.imageUrl}
+              alt={`Profile ${index}`}
+            />
+          ))}
+          {buttons.length < 5 && (
+            <Link to="/addProfile">
+              {" "}
+              <Button
+                className="btn-plus bg-white shadow-lg mx-auto mt-5"
+                onClick={handleAddButton}
+              >
+                +
+              </Button>
+            </Link>
+          )}
+        </Row>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default Profile;
