@@ -9,7 +9,7 @@
   background-color: #0284c7;
 }
 
-.title {
+.title__editProfile {
   margin-top: 3rem;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -21,18 +21,18 @@ hr {
   width: 500px;
 }
 
-.title-remove {
+.title-remove__editProfile {
   font-size: 1.5rem;
 }
 
-.about {
+.about__editProfile {
   font-size: 1.1rem;
 }
 
-.remove-profile {
+.remove-profile__editProfile  {
   margin-top: 0.5rem;
 }
 
-.btn-functions {
+.btn-functions__editProfile  {
   margin-top: 2.5rem;
 }

@@ -1,6 +1,14 @@
-body {
+.container__addProfile {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  justify-content: center;
   background-color: #0284c7;
 }
+
 .title {
   margin-top: 3rem;
   font-family: Arial, Helvetica, sans-serif;

@@ -33,7 +33,7 @@ const Profile: React.FC = () => {
           {buttons.map((button, index) => (
             <img
               key={index}
-              className="btn-img mr-5 mt-5"
+              className="btn-img__profile mr-5 mt-5"
               src={button.imageUrl}
               alt={`Profile ${index}`}
             />
@@ -42,7 +42,7 @@ const Profile: React.FC = () => {
             <Link to="/addProfile">
               {" "}
               <Button
-                className="btn-plus bg-white shadow-lg mx-auto mt-5"
+                className="btn-plus__profile bg-white shadow-lg mx-auto mt-5"
                 onClick={handleAddButton}
               >
                 +

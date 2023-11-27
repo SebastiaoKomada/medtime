@@ -48,8 +48,8 @@ const AddProfile: React.FC<Props> = () => {
             <button
               type="button"
               className={`btn-removebtn-remove text-white bg-sky-600 hover:bg-sky-700 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2 ${isDataEntered
-                  ? ""
-                  : "disabled:opacity-50 disabled:cursor-not-allowed"
+                ? ""
+                : "disabled:opacity-50 disabled:cursor-not-allowed"
                 }`}
               disabled={!isDataEntered}
             >

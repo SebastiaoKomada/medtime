@@ -1,0 +1,49 @@
+.bottom-nav__home{
+  display: none;
+}
+
+
+@media screen and (max-width: 850px) {
+    
+    .bottom-nav__home {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 10vh;
+      background-color: #fff;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+  }
+  
+  .bottom-nav__home a {
+      color: #000;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .bottom-nav__home i {
+      font-size: 24px;
+      margin-bottom: 5px;
+  }
+  
+  .btn-add__home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    background-color: #00BEF0;
+    margin-bottom: 10vh;
+  }
+  
+  }

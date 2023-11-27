@@ -9,7 +9,7 @@
   background-color: #0284c7;
 }
 
-.btn-plus {
+.btn-plus__profile {
   width: 160px;
   height: 160px;
   border-radius: 80px;
@@ -17,7 +17,7 @@
   padding-bottom: 12px;
 }
 
-.btn-img {
+.btn-img__profile {
   width: 160px;
   height: 160px;
   border-radius: 80px;

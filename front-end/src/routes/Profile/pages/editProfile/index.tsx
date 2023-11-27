@@ -19,7 +19,7 @@ const EditProfile: React.FC<Props> = () => {
   return (
     <div className="container__editProfile">
       <div className="form-container bg-white mt-4 bg-shadow pl-48 pr-48 pb-4 shadow-xl rounded-md flex flex-col mx-auto">
-        <h1 className="title text-3xl font-bold mb-4 ">Editar perfil</h1>
+        <h1 className="title__editProfile text-3xl font-bold mb-4 ">Editar perfil</h1>
         <Row justify="center" align="middle">
           <Col>
             <Space direction="vertical" align="center">
@@ -34,10 +34,10 @@ const EditProfile: React.FC<Props> = () => {
         </Row>
         <hr className="border-t-2 border-gray-500 my-4" />
 
-        <Row className="remove-profile" justify="space-between">
+        <Row className="remove-profile__editProfile" justify="space-between">
           <Col>
-            <h2 className="title-remove ">Remover perfil</h2>
-            <p className="about ">Remova esse perfil da conta</p>
+            <h2 className="title-remove__editProfile ">Remover perfil</h2>
+            <p className="about__editProfile ">Remova esse perfil da conta</p>
           </Col>
 
           <Col className="">
@@ -50,7 +50,7 @@ const EditProfile: React.FC<Props> = () => {
           </Col>
         </Row>
 
-        <Row className="btn-functions" justify="center">
+        <Row className="btn-functions__editProfile" justify="center">
           <Col>
             <button
               type="button"
@@ -63,9 +63,9 @@ const EditProfile: React.FC<Props> = () => {
           <Col>
             <button
               type="button"
-              className={`btn-removebtn-remove text-white bg-sky-600 hover:bg-sky-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${isDataEntered
-                  ? ""
-                  : "disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`btn-remove text-white bg-sky-600 hover:bg-sky-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${isDataEntered
+                ? ""
+                : "disabled:opacity-50 disabled:cursor-not-allowed"
                 }`}
               disabled={!isDataEntered}
             >

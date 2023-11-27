@@ -1,0 +1,45 @@
+.logo__profileHome {
+    display: none;
+
+}
+
+@media screen and (max-width: 850px) {
+
+    .logo__profileHome {
+        display: flex;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 10vh;
+        color: #000;
+        align-items: center;
+        margin-top: 10px;
+    }
+    .col-1__profileHome{
+        display: flex;
+        align-items: center;
+        width: 50%;
+    }
+
+
+    .col-1__profileHome img {
+        width: 120px;
+        border-radius: 50%;
+        border: 2px solid #000;
+    }
+
+    .col-1__profileHome h2 {
+        font-size: 1.15rem;
+        font-weight: 600;
+    }
+
+    .col-2__profileHome {
+        display: flex;
+        width: 50%;
+        margin-left: 40%;
+        justify-content: center;
+    }
+
+
+
+  }
