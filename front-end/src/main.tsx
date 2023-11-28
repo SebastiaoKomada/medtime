@@ -1,11 +1,6 @@
-import './index.css';
-
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-
-import { GlobalProvider } from './shared/hooks/useGlobalContext.tsx';
-
 import App from './App.tsx';
+import { GlobalProvider } from './shared/hooks/useGlobalContext.tsx';
 import { DataProvider } from './shared/hooks/useDataContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -13,5 +8,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <DataProvider>
       <App />
     </DataProvider>
-  </GlobalProvider>,
+  </GlobalProvider>
 );

@@ -1,0 +1,273 @@
+
+.container__landingPage{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+
+}
+
+.contentCenter__landingPage {
+    display: -ms-grid;
+    
+    grid-template-columns: repeat(auto-fit, minmax(1fr, 1fr));
+    align-items: center;
+    justify-items: center;
+    margin: 0 auto;
+    height: 60vh;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 24px;
+}
+
+
+.imagem {
+    height: 70%;
+    width: 70%;
+}
+
+@media screen and (max-width: 768px) {
+    .contentCenter__landingPage {
+        grid-template-columns: 1fr;
+        height: 100%;
+    }
+}
+.contentRight__landingPage {
+    display: flex;
+  
+ }
+
+
+ .contentLeftlandingPage {   
+    width: 100%;  
+    line-height: 1.2;  
+    padding: 5rem 0; }
+   
+    .contentLeftlandingPage h1 { 
+    font-size: 4rem;    
+    color: #00BEF0; } 
+    
+    .contentLeftlandingPage h2 {    
+    font-size: 4rem; 
+    color: #222121; } 
+    
+    .contentLeftlandingPage p {    
+    font-size: 2rem; 
+    color: #222121;     
+    margin-top: 1rem;   
+    font-weight: 700; }
+
+.contentLeft__landingPage h1 {
+    font-size: 4rem;
+    color: #00BEF0;
+}
+
+.contentLeft__landingPage h2 {
+    font-size: 4rem;
+    color: #222121;
+}
+
+.contentLeft__landingPage p {
+    font-size: 2rem;
+    color: #222121;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.buttonSignup__landingPage {
+    font-size: 1rem;
+    background-color: #00BEF0;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 4px;
+    color: #f7f7f7;
+    margin-top: 2rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+    outline: none;
+    z-index: 1;
+}
+
+.buttonSignup__landingPage a {
+    position: relative;
+    z-index: 2;
+    color: #f7f7f7;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.buttonSignup__landingPage:hover:after {
+    width: 100%;
+}
+
+.buttonSignup__landingPage:hover {
+    transform: scale(1.1);
+    transition: 1s;
+  }
+  
+
+.conteudo {
+    height: auto;
+    background-color: #00BEF0;
+}
+
+.util {
+    padding: 5px;
+    background-color: #f7f7f7;
+    height: 350px;
+    border-radius: 20px;
+    margin-left: 17px;
+    float: left;
+}
+
+
+.descri {
+    color: #000000;
+    font-size: 22px;
+    text-align: center;
+    width: 290px;
+}
+
+.image__landingPage{
+    display: right;
+    width: 100%;
+}
+
+.imagem{
+    object-fit: cover;
+   
+}
+
+.conteudo{
+    padding: 10px;
+}
+
+.inf{
+  text-align: justify;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+    .imagem{
+        display: none;
+    }
+    .objImage{
+        display: none;
+    }
+    .objText{
+        display:flex;
+    }
+
+ }
+
+.requisitos h2{
+    font-size: 2.5rem;
+    color: #fff;
+} 
+
+main.cards {
+    justify-content: center;
+    display: flex;
+    padding: 32px;
+}
+
+main.cards section.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    max-height: 468px;
+    margin-left: 32px;
+}
+
+main.cards section.card:first-child {
+    margin-left: 0;
+}
+
+main.cards section.card .icon {
+    width: 200px;
+    height: 200px;
+}
+
+main.cards section.card img {
+    width: 100%;
+}
+
+main.cards section.card h3 {
+    font-size: 100%;
+    margin: 16px 0;
+}
+
+main.cards section.card span {
+    font-weight: 300;
+    max-width: 240px;
+    font-size: 80%;
+    margin-bottom: 16px;
+}
+
+main.cards section.card button {
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    border-radius: 32px;
+    border: 0;
+    cursor: pointer;
+    font-size: 80%;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 16px 0;
+}
+
+@media screen and (max-width: 720px) {
+    main.cards {
+        flex-direction: column;
+    }
+
+    main.cards section.card {
+        margin-left: 0;
+        margin-bottom: 32px;
+    }
+
+    main.cards section.card:last-child {
+        margin-bottom: 0;
+    }
+
+    main.cards section.card button {
+        font-size: 70%;
+    }
+
+}
+.tit{
+    text-align: center;
+    font-size: 2.5rem;
+    color: #fff;
+}
+.objText{
+    color: #fff;
+}
+.objimg{
+ width: 500px;
+ height: 500px;
+}
+
+.footer{
+    display: flex;
+    width: 100%;
+    height: 10vh;
+    background-color: #03aad4  ;
+    color: #fff;
+    align-items: center;
+    justify-content: center ;
+    text-align: center;
+}
+
+.content h1{
+    font-size: 30px;
+    color: #fff;
+}

@@ -1,0 +1,25 @@
+.btn__add{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size: 1rem;
+    background-color: #00BEF0;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #f7f7f7;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.btn-delete__add{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size: 1rem;
+    background-color: #f00000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    color: #f7f7f7;
+    cursor: pointer;
+    margin: 10px;
+}

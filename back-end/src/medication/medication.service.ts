@@ -18,38 +18,13 @@ export class MedicationService {
     private readonly profileIdService: ProfileIdService,
   ) {}
 
-  // async createMedication(
-  //   createMedicationDto: CreateMedicationDto,
-  //   medPerId: number,
-  // ): Promise<MedicationEntity> {
-  //   return this.medicationRepository.save({
-  //     ...createMedicationDto,
-  //     medPerId,
-  //   });
-  // }
-
   async gettAllMedicationByPerId(medPerId: number): Promise<MedicationEntity[]> {
-    return this.medicationRepository
-      .find({
-        where: {
-          medPerId,
-        },
-      })
-      .catch(() => undefined);
-  }
-
-  async findMedicationById(medId: number): Promise<MedicationEntity> {
-    const findMedication = await this.medicationRepository.findOne({
+    return this.medicationRepository.find({
       where: {
-        medId,
+        medPerId,
       },
-    });
-
-    if (!findMedication) {
-      throw new NotFoundException(`usuId: ${medId} Not Found`);
-    }
-
-    return findMedication;
+      relations: ['times'],
+    }).catch(() => undefined);
   }
 
   async getMedicationByIdUsingRelations(medId: number): Promise<MedicationEntity> {
@@ -58,7 +33,20 @@ export class MedicationService {
         medId,
       },
       relations: ['times'],
-    })
+    }).catch(() => undefined);
+  }
+  async findMedicationById(medId: number): Promise<MedicationEntity> {
+    const findMedication = await this.medicationRepository.findOne({
+      where: {
+        medId,
+      },
+    });
+
+    if (!findMedication) {
+      throw new NotFoundException(`medId: ${medId} Not Found`);
+    }
+
+    return findMedication;
   }
   
   async createMedicationAndTimes(

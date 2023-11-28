@@ -1,71 +1,67 @@
-import { useState } from 'react';
-
-import ConnectionAPI, { MethodType, connectionAPIPost } from './../functions/connection/connectionAPI';
-import { HomeRoutesEnum } from '../../routes/Home/routeHome';
-import { useNavigate } from 'react-router-dom';
-import { URL_AUTH } from '../constants/urls';
-import { setAuthorizationToken } from '../functions/connection/auth';
-import { useGlobalContext } from './useGlobalContext';
-import { ERROR_CONNECTION } from '../constants/errorStatus';
-import { AuthType } from '../../routes/LogIn/types/AuthType';
+import { useState } from "react";
+import { useGlobalContext } from "./useGlobalContext";
+import ConnectionAPI, { MethodType, connectionAPIPost } from "../functions/connection/connectionAPI";
+import { URL_AUTH } from "../constants/urls";
+import { ERROR_INVALID_PASSWORD } from "../constants/errorStatus";
+import { useNavigate } from "react-router-dom";
+import { setAuthorizationToken } from "../functions/connection/auth";
+import { AuthType } from "../../modules/LogIn/types/AuthType";
+import { ProfileRoutesEnum } from "../../modules/Profile/routes";
 
 export const useRequest = () => {
-  const navigate  = useNavigate()
-  const { setNotification, setUser } = useGlobalContext();
-  const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const { setNotification, setUser } = useGlobalContext();
 
-  const request = async <T>(
-    url: string,
-    method: MethodType,
-    saveGlobal?: (object: T) => void,
-    body?: unknown,
-    message?: string,
-  ): Promise<T | undefined> => 
-  {
-    setLoading(true);
+    const request = async <T>(url: string, method: MethodType, saveGlobal?: (object: T) => void, body?: unknown): Promise<T | undefined> => {
+        setLoading(true);
+        const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
+            .then((result) => {
+                if (saveGlobal) {
+                    saveGlobal(result);
+                }
+                return result;
+            }).catch((error: Error) => {
+                setNotification(error.message, 'error');
+                return undefined;
+            });
+        return returnObject;
+    };
 
-    const returnObject: T | undefined = await ConnectionAPI.connect<T>(url, method, body)
-      .then((result) => {
-        if (saveGlobal) {
-          saveGlobal(result);
-        }
-        if (message) {
-          setNotification('Sucesso!', 'success', message);
-        }
-        return result;
-      })
-      .catch((error: Error) => {
-        setNotification(error.message, 'error');
-        return undefined;
-      });
+    const createUserRequest = async <T>(url: string, body: unknown): Promise<T | undefined> => {
+        setLoading(true);
+        const returnData = await connectionAPIPost<T>(url, body)
+            .then((result) => {
+                setNotification('Conta criada com sucesso!', 'success');
+                return result;
+            }).catch(() => {
+                setNotification('O E-mail já está sendo utilizado.', 'error');
+                return undefined;
+            });
+        setLoading(false);
+        return returnData;
+    }
 
-    setLoading(false);
+    const authRequest = async (body: unknown): Promise<void> => {
+        setLoading(true);
+        await connectionAPIPost<AuthType>(URL_AUTH, body)
+            .then((result) => {
+                setUser(result.user);
+                setAuthorizationToken(result.accessToken);
+                navigate(ProfileRoutesEnum.PROFILE);
+                return result;
+            }).catch(() => {
+                setNotification(ERROR_INVALID_PASSWORD, 'error');
+                return undefined;
+            });
 
-    return returnObject;
-  };
+        setLoading(false);
+    }
 
-  const authRequest = async (body: unknown): Promise<void> => {
-    setLoading(true);
-
-    await connectionAPIPost<AuthType>(URL_AUTH, body)
-      .then((result) => {
-        setUser(result.user);
-        setAuthorizationToken(result.accessToken);
-        navigate(HomeRoutesEnum.HOME);
-        return result;
-      })
-      .catch(() => {
-        setNotification(ERROR_CONNECTION, 'error');
-        return undefined;
-      });
-
-    setLoading(false);
-  };
-
-
-  return {
-    loading,
-    authRequest,
-    request,
-  };
-};
+    return {
+        loading,
+        request,
+        authRequest,
+        createUserRequest
+    }
+}

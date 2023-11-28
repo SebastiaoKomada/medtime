@@ -7,16 +7,14 @@ import { TimeModule } from 'src/time/time.module';
 import { MedicationModule } from 'src/medication/medication.module';
 import { ProfileIdModule } from 'src/profile/profile-id/profile-id.module';
 import { ProfileModule } from 'src/profile/profile.module';
+import { MedicationEntity } from 'src/medication/entities/medication.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ConfirmationEntity]),
-    TimeModule,
-    MedicationModule,
-    ProfileModule,
-    ProfileIdModule,
+    TypeOrmModule.forFeature([ConfirmationEntity]),TypeOrmModule.forFeature([MedicationEntity]),
+    TimeModule, MedicationModule, ProfileModule, ProfileIdModule
   ],
   controllers: [ConfirmationController],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService]
 })
-export class ConfirmationModule {}
+export class ConfirmationModule { }

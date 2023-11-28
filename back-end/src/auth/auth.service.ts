@@ -8,7 +8,10 @@ import { JwtService } from '@nestjs/jwt';
 import { ReturnLogin } from './dtos/returnLogin.dto';
 import { ReturnUserDto } from '../user/dtos/returnUser.dto';
 import { LoginPayload } from './dtos/loginPayload.dto';
+import { ProfileEntity } from '../profile/entities/profile.entity';
+import { Repository } from 'typeorm';
 import { ProfileService } from '../profile/profile.service';
+import { ReturnProfileDto } from '../profile/dtos/returnProfile.dto';
 import { ProfileIdService } from 'src/profile/profile-id/profile-id.service';
 
 @Injectable()
@@ -46,7 +49,7 @@ export class AuthService {
     if (returnUser.perfis && returnUser.perfis.length > 0) {
       const userPerfil = returnUser.perfis[0];
       this.profileIdService.setProfileId(Number(userPerfil.perId));
-      console.log(this.profileIdService.getProfileId())
+      console.log('Perfil Iniciado: ', this.profileIdService.getProfileId())
     }
     return {
       accessToken: this.jwtService.sign({ ...new LoginPayload(user) }),

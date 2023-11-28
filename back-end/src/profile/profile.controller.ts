@@ -19,6 +19,11 @@ export class PerfilController {
   async gettAllPerfilByUserId(@UserId() perUsuId: number): Promise<ProfileEntity[]> {
     return this.ProfileService.gettAllPerfilByUserId(perUsuId);
   }
+
+  @Get('/:perId')
+  async gettOnePerfilByPerId(@UserId() perId: number): Promise<ProfileEntity[]> {
+    return this.ProfileService.gettOnePerfilByPerId(perId);
+  }
   
   @UsePipes(ValidationPipe)
   @Post()

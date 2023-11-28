@@ -1,24 +1,23 @@
-import { notification as notificationAntd } from 'antd';
-import { useEffect } from 'react';
-
-import { useGlobalContext } from './useGlobalContext';
+import { notification as notificationAntd } from "antd"
+import { useGlobalContext } from "./useGlobalContext";
+import { useEffect } from "react";
 
 export const useNotification = () => {
-  const [api, contextHolder] = notificationAntd.useNotification();
-  const { notification } = useGlobalContext();
+    const [api, contextHolder] = notificationAntd.useNotification();
+    const { notification } = useGlobalContext();
 
-  useEffect(() => {
-    if (notification?.message && notification.type) {
-      api[notification.type]({
-        message: `${notification.message}`,
-        description: notification.description,
-        placement: 'bottomRight',
-      });
+    useEffect(() => {
+        if(notification?.message && notification.type) {
+            api[notification.type]({
+                message: `${notification.message}`,
+                description: notification?.description,
+                placement: 'bottomRight',
+            })
+        }
+    }, [notification]);
+
+    return {
+        api,
+        contextHolder,
     }
-  }, [notification]);
-
-  return {
-    api,
-    contextHolder,
-  };
-};
+}

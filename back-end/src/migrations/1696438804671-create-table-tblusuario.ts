@@ -1,9 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm"
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateTableTblusuario1696438804671 implements MigrationInterface {
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`
         CREATE TABLE tblusuario (
             usuId int(11) PRIMARY KEY AUTO_INCREMENT,
             usuNome varchar(100) NOT NULL,
@@ -15,13 +14,12 @@ export class CreateTableTblusuario1696438804671 implements MigrationInterface {
             updated_at datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
           )
 
-        `)
-    }
+        `);
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    queryRunner.query(`
         drop table tblusuario
-        `)
-    }
-
+        `);
+  }
 }

@@ -1,10 +1,14 @@
 import React from 'react';
 
 import { createContext, useContext, useState } from 'react';
-import { MedicationType } from '../types/MedicationType';
+import { MedicationType } from '../../modules/Home/types/MedicationType';
+import { ProfileType } from '../../modules/LogIn/types/UserType';
+import { NotifyType } from '../../modules/Home/types/NotifyType';
 
 interface DataContext {
   medication?: MedicationType[];
+  profile?: ProfileType;
+  notify?: NotifyType[];
 }
 
 interface DataContextProps {
@@ -35,12 +39,30 @@ export const useDataContext = () => {
     setData({
       ...data,
       medication
-    })
-  }
+    });
+  };
+
+  const setProfile = (profile: ProfileType) => {
+    setData({
+      ...data,
+      profile,
+    });
+  };
+
+  const setNotify = (notify: NotifyType[]) => {
+    setData({
+      ...data,
+      notify,
+    });
+  };
 
   return {
     medication: data?.medication || [],
     setMedication,
+    profile: data?.profile,
+    setProfile,
+    notify: data?.notify || [],
+    setNotify
   };
 };
 

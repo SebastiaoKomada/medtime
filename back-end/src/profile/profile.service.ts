@@ -45,6 +45,17 @@ export class ProfileService {
       .catch(() => undefined);
   }
 
+  async gettOnePerfilByPerId(perId: number): Promise<ProfileEntity[]> {
+    return this.perfilRepository
+      .find({
+        where: {
+          perId,
+        },
+      })
+      .catch(() => undefined);
+  }
+
+
   async createPerfil(
     createProfileDto: CreateProfileDto,
     perUsuId: number,
@@ -68,7 +79,7 @@ export class ProfileService {
     }
 
     this.profileIdService.setProfileId(perfil.perId);
-    console.log('Perfil setado: ', this.profileIdService.getProfileId())
+    //console.log('Perfil setado: ', this.profileIdService.getProfileId())
     // console.log('Id Pego: ', this.perfilIdService.getProfileId());
     // console.log(
     //   'Id: ',

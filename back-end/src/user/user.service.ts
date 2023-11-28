@@ -12,7 +12,7 @@ export class UserService {
   private readonly userRepository: Repository<UserEntity>,
   ) { }
 
-  async criarUsuario(CreateUserDto: CreateUserDto): Promise<UserEntity> {
+  async createUser(CreateUserDto: CreateUserDto): Promise<UserEntity> {
     const user = await this.findUserByEmail(CreateUserDto.usuEmail).catch(
       () => undefined
     );
@@ -28,7 +28,7 @@ export class UserService {
     })
   }
 
-  async pegarUsuarios(): Promise<UserEntity[]> {
+  async getAllUsers(): Promise<UserEntity[]> {
     return this.userRepository.find();
   }
 

@@ -2,6 +2,8 @@ import { ProfileIdService } from './../profile/profile-id/profile-id.service';
 import {
   Body,
   Controller,
+  Delete,
+  Get,
   Param,
   Post,
   UsePipes,
@@ -22,15 +24,41 @@ export class TimeController {
     private readonly profileIdService: ProfileIdService,
   ) {}
 
-  // @UsePipes(ValidationPipe)
-  // @Post()
-  // async createPerfil(
-  //   @Body() createTimeDto: CreateTimeDto,
-  //   @UserId() horUsuId: number,
-  //   @Param('horPerdId') horPerId: number,
-  // ): Promise<TimeEntity> {
-  //   const newPerId = this.profileIdService.getProfileId();
-  //   console.log(newPerId)
-  //   return this.timeService.createTime(createTimeDto, horUsuId, newPerId);
+  @UsePipes(ValidationPipe)
+  @Post()
+  async createPerfil(
+    @Body() createTimeDto: CreateTimeDto,
+    @UserId() horUsuId: number,
+    @Param('horPerdId') horPerId: number,
+  ): Promise<TimeEntity> {
+    const newPerId = this.profileIdService.getProfileId();
+    console.log(newPerId)
+    return this.timeService.createTime(createTimeDto, horUsuId, newPerId);
+  }
+
+  @Get()
+  async findTimeByHourUsuId(@UserId() horUsuId: number,) {
+    return this.timeService.findTimeByHourUsuId(horUsuId);
+  }
+
+  @Get('/:horId')
+  async findTimeById(@Param() horId: number) {
+    return this.timeService.findTimeById(horId);
+  }
+
+  // @Get('notify')
+  // async getProfileAndStartChecking(@UserId() horUsuId: number, subscription: any) {
+  //   await this.timeService.startChecking(horUsuId, subscription);
+  //   return new Promise((resolve) => {
+  //     console.log('Iniciando verificação de horários ativos.');
+  //     resolve('Iniciando verificação de horários ativos.');
+  //   });
   // }
+
+  @Delete('stop')
+  async stopChecking() {
+    this.timeService.stopChecking();
+    return 'Parando a verificação de horários ativos.';
+  }
+
 }

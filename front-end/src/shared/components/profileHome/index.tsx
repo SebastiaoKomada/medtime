@@ -1,6 +1,5 @@
-import React from "react";
 import "./index.css";
-import { PiUserSwitchFill } from "react-icons/pi";
+//import { PiUserSwitchFill } from "react-icons/pi";
 
 
 const ProfileHome = () => {
@@ -10,9 +9,9 @@ const ProfileHome = () => {
                 <img src="profile.png" alt="logo" />
                 <h2>Seba</h2>
             </div>
-            <div className="col-2__profileHome">
+            {/* <div className="col-2__profileHome">
                 <PiUserSwitchFill color="red" size={40}/>
-            </div>
+            </div> */}
         </div>
     );
 };

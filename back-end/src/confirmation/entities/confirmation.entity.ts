@@ -4,22 +4,24 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "t
 
 @Entity({ name: 'tblconfirmacao' })
 export class ConfirmationEntity {
- 
-    @PrimaryGeneratedColumn()
-    conId: number;
 
-    @Column({ name: 'conPerId', nullable: false })
-    conPerId: number;
+  @PrimaryGeneratedColumn()
+  conId: number;
 
-    @Column({ name: 'conMedId', nullable: false })
-    conMedId: number; 
+  @Column({ name: 'conPerId', nullable: false })
+  conPerId: number;
 
-    @Column({ name: 'conHorId', nullable: false })
-    conHorId: number; 
+  @Column({ name: 'conMedId', nullable: false })
+  conMedId: number;
 
-    @Column({ name: 'conData', nullable: false })
-    conData: Date; 
+  @Column({ name: 'conHorId', nullable: false })
+  conHorId: number;
 
+  @Column({ name: 'conData', nullable: false })
+  conData: string;
+
+  @Column({ name: 'created_at', nullable: false })
+  created_at: string;
 
   @ManyToOne(() => MedicationEntity, (medication) => medication.confirmation)
   @JoinColumn({ name: 'conMedId', referencedColumnName: 'medId' })

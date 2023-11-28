@@ -27,8 +27,8 @@ const App: React.FC = () => {
   return (
     <Space direction="vertical" align="center">
       <div className="img-profile">
-        <div className="img-container">
-          <Image width={180} src={imageSrc} preview={false} />
+        <div className="img-container__image">
+          <img src={imageSrc} />
         </div>
       </div>
       <input

@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { createContext, useContext, useState } from 'react';
-import { ProfileType, UserType } from '../../routes/LogIn/types/UserType';
+import { UserType } from '../../modules/LogIn/types/UserType';
+import { MedicationType } from '../../modules/Home/types/MedicationType';
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
@@ -10,12 +9,10 @@ interface NotificationProps {
   type: NotificationType,
   description?: string,
 }
-
 interface GlobalData {
-  notification?: NotificationProps
+  notification?: NotificationProps;
   user?: UserType;
-  profile?: ProfileType;
-
+  medication?: MedicationType,
 }
 
 interface GlobalContextProps {
@@ -43,37 +40,35 @@ export const useGlobalContext = () => {
   const { globalData, setGlobalData } = useContext(GlobalContext);
 
   const setNotification = (message: string, type: NotificationType, description?: string) => {
-      setGlobalData({
-        ...globalData,
-        notification: {
-          message,
-          type,
-          description,
-        },
-      });
+    setGlobalData({
+      ...globalData,
+      notification: {
+        message,
+        type,
+        description,
+      }
+    });
   };
-
   const setUser = (user: UserType) => {
     setGlobalData({
       ...globalData,
-      user
-    })
-  }
+      user,
+    });
+  };
 
-  const setProfile = (profile: ProfileType) => {
+  const setMedication = (medication: MedicationType) => {
     setGlobalData({
       ...globalData,
-      profile,
+      medication,
     });
   };
 
   return {
     notification: globalData?.notification,
-    user: globalData?.user,
-    profile: globalData?.profile,
-    setUser,
-    setProfile,
     setNotification,
+    user: globalData?.user,
+    setUser,
+    medication: globalData?.medication,
+    setMedication,
   };
 };
-

@@ -8,13 +8,16 @@ import {
   Post,
   UsePipes,
   ValidationPipe,
-
 } from '@nestjs/common';
+import { Repository, Transaction, getRepository } from 'typeorm';
 import { MedicationEntity } from './entities/medication.entity';
+import { CreateMedicationDto } from './dtos/createMedication.dto';
 import { MedicationService } from './medication.service';
 import { Roles } from 'src/decorators/roles.decorator';
 import { UserType } from 'src/user/enum/user.enum';
+import { ReturnTimeDto } from 'src/time/dtos/returnTime.dto';
 import { ReturnMedicationDto } from './dtos/returnMedication.dto';
+import { TimeEntity } from 'src/time/entities/time.entity';
 import { UserId } from 'src/decorators/user-id.decorator';
 
 @Roles(UserType.User)
@@ -25,12 +28,11 @@ export class MedicationController {
     private readonly profileIdService: ProfileIdService,
   ) {}
 
-  // @UsePipes(ValidationPipe)
-  // @Post()
-  // async createMedication(@Body() CreateMedicacaoDto: CreateMedicationDto, @Param('medPerId') medPerId: number): Promise<MedicationEntity> {
-  //     const newMedPerId = this.profileIdService.getProfileId();
-  //     return this.medicationService.createMedication(CreateMedicacaoDto, newMedPerId)
-  // }
+  @Get()
+  async gettAllMedicationByPerId(@Param('medPerId') medPerId: number): Promise<ReturnMedicationDto[]> {
+    const newPerId = this.profileIdService.getProfileId();
+    return this.medicationService.gettAllMedicationByPerId(newPerId);
+  }
 
   @Get('/:medId')
   async getMedicationByIdUsingRelations(
@@ -43,13 +45,6 @@ export class MedicationController {
     }
   
     return new ReturnMedicationDto(medicationEntity);
-  }
-
-  @UsePipes(ValidationPipe)
-  @Get()
-  async gettAllMedicationByPerId(@Param('medPerId') medPerId: number): Promise<MedicationEntity[]> {
-    const newPerId = this.profileIdService.getProfileId();
-    return this.medicationService.gettAllMedicationByPerId(newPerId);
   }
 
   @Post('create')
